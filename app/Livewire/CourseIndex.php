@@ -32,8 +32,8 @@ class CourseIndex extends Component
         $s = $this->q;
         $courses = Course::live()->with('category')
             ->when($s !== '', fn ($b) => $b->where(fn ($w) => $w
-                ->where('title_ar', 'like', "%{$s}%")
-                ->orWhere('title_en', 'like', "%{$s}%")
+                ->where('title->ar', 'like', "%{$s}%")
+                ->orWhere('title->en', 'like', "%{$s}%")
                 ->orWhere('instructor_name', 'like', "%{$s}%")))
             ->when($this->cat !== '', fn ($b) => $b->whereHas('category', fn ($c) => $c->where('slug', $this->cat)))
             ->when($this->level !== '', fn ($b) => $b->where('level', $this->level));

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Middleware\SetLocale;
-use App\Livewire\Admin;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Cart;
@@ -56,10 +55,12 @@ Route::middleware([SetLocale::class])->group(function () {
         Route::get('/learn/{course}/{lesson?}', Player::class)->name('learn');
 
         Route::prefix('admin')->name('admin.')->group(function () {
-            Route::get('/', Admin\Dashboard::class)->middleware('can:dashboard.view')->name('dashboard');
-            Route::get('/orders', Admin\Orders::class)->middleware('can:orders.view')->name('orders');
-            Route::get('/courses', Admin\Courses::class)->middleware('can:courses.update')->name('courses');
-            Route::get('/courses/{course}/curriculum', Admin\Curriculum::class)->middleware('can:courses.update')->name('curriculum');
+            Route::get('/', \App\Livewire\dashboard\dashboard::class)->middleware('can:dashboard.view')->name('dashboard');
+            Route::get('/categories', \App\Livewire\categories\categories::class)->middleware('can:categories.update')->name('categories');
+            Route::get('/courses', \App\Livewire\courses\courses::class)->middleware('can:courses.update')->name('courses');
+            Route::get('/courses/{course}/curriculum', \App\Livewire\curriculum\curriculum::class)->middleware('can:courses.update')->name('curriculum');
+            Route::get('/coupons', \App\Livewire\coupons\coupons::class)->middleware('can:coupons.update')->name('coupons');
+            Route::get('/orders', \App\Livewire\orders\orders::class)->middleware('can:orders.view')->name('orders');
             Route::get('/payments/{payment}/proof', function (Payment $payment) {
                 abort_unless($payment->proof_path && Storage::disk('local')->exists($payment->proof_path), 404);
 

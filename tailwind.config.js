@@ -8,16 +8,18 @@ export default {
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
   ],
   theme: {
-    // Design rule: no border radius anywhere.
-    borderRadius: { none: '0', sm: '0', DEFAULT: '0', md: '0', lg: '0', xl: '0', '2xl': '0', '3xl': '0', full: '0' },
     extend: {
       colors: {
-        ink: '#080808',
-        steel: '#777777',
-        silver: '#D4D4D4',
-        gold: { DEFAULT: '#D4AF37', dark: '#B8962E' },
+        // Palette taken from the MousaTech "M" logo: deep navy + metallic gold
+        ink: '#0E1B2E',
+        navy: { DEFAULT: '#0E1B2E', 2: '#16263E', 3: '#1F3556' },
+        steel: '#7B879E',
+        silver: '#D9DEE8',
+        mist: '#F4F6FA',
+        gold: { DEFAULT: '#D4AF37', light: '#F5D5A2', dark: '#A8841F' },
       },
-      fontFamily: { sans: ['Inter', 'Cairo', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+      fontFamily: { sans: ['Cairo', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+      boxShadow: { card: '0 6px 24px rgba(14,27,46,.08)' },
     },
   },
   plugins: [],

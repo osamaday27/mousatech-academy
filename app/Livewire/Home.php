@@ -24,6 +24,7 @@ class Home extends Component
             'featured' => $base()->where('is_featured', true)->latest('id')->take(4)->get(),
             'best' => $base()->withCount('enrollments')->orderByDesc('enrollments_count')->take(4)->get(),
             'latest' => $base()->latest('id')->take(4)->get(),
+            'discover' => $base()->latest('id')->take(12)->get(),
             'posts' => Post::with('user')->withCount(['likes', 'comments'])->latest('id')->take(3)->get(),
             'stats' => [
                 'courses' => Course::live()->count(),

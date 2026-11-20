@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Concerns\Translatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +14,9 @@ use Illuminate\Support\Facades\Storage;
 
 class Course extends Model
 {
-    use Translatable;
+    use HasFactory, SoftDeletes, HasTranslations, Translatable;
+
+    public array $translatable = ['title', 'description'];
 
     protected $guarded = [];
 

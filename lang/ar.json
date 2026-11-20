@@ -15,7 +15,7 @@
   "Ask us on WhatsApp for the transfer number.": "اطلب رقم التحويل منا عبر واتساب.",
   "Beginner": "مبتدئ",
   "Best sellers": "الأكثر مبيعًا",
-  "Browse courses": "تصفح الكورسات",
+  "Browse courses": "تصفح الدورات",
   "Buy now": "اشترِ الآن",
   "Cancel": "إلغاء",
   "Cart": "السلة",
@@ -227,5 +227,16 @@
   "You are posting too fast. Please wait a moment.": "أنت تنشر بسرعة كبيرة. انتظر قليلًا.",
   "Your learning journey": "رحلتك التعليمية",
   "Your progress is saved on every lesson.": "يُحفظ تقدمك مع كل محاضرة.",
-  "to comment": "للتعليق"
+  "to comment": "للتعليق",
+  "Previous": "السابق",
+  "Next": "التالي",
+  "All": "الكل",
+  "More": "المزيد",
+  "More than :n courses": "أكثر من :n كورس",
+  "Start your journey to build your": "ابدأ رحلتك لتنمية",
+  "tech skills": "مهاراتك التقنية",
+  "Discover skills courses": "اكتشف كورسات المهارات",
+  "Sign up now and start learning with real projects!": "سجّل الآن وابدأ التعلم بمشاريع حقيقية!",
+  "Create your free account to preview lessons and join the community.": "أنشئ حسابك المجاني لتشاهد الدروس التجريبية وتنضم للمجتمع.",
+  "Create your account now": "أنشئ حسابك الآن"
 }

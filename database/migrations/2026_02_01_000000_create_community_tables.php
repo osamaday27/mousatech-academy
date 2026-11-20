@@ -18,6 +18,7 @@ return new class extends Migration
             $t->text('body');
             $t->string('image')->nullable();
             $t->timestamps();
+            $t->softDeletes();
             $t->index('created_at');
         });
 
@@ -27,6 +28,7 @@ return new class extends Migration
             $t->foreignId('user_id')->constrained()->cascadeOnDelete();
             $t->string('body', 1000);
             $t->timestamps();
+            $t->softDeletes();
         });
 
         Schema::create('post_likes', function (Blueprint $t) {

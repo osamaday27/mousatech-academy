@@ -4,11 +4,16 @@ namespace App\Models\Concerns;
 
 trait Translatable
 {
-    /** tr('title') => title_ar / title_en by current locale, falling back to Arabic. */
+    /** Current-language value with graceful fallback: tr('title') */
     public function tr(string $field): string
     {
-        $l = app()->getLocale();
+        foreach ([app()->getLocale(), 'ar', 'en'] as $l) {
+            $v = $this->getTranslation($field, $l, false);
+            if (filled($v)) {
+                return (string) $v;
+            }
+        }
 
-        return (string) ($this->{$field.'_'.$l} ?: $this->{$field.'_ar'} ?: '');
+        return '';
     }
 }

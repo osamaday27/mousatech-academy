@@ -14,8 +14,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $perms = collect(['dashboard.view', 'courses.create', 'courses.update', 'courses.delete', 'orders.view', 'orders.update', 'payments.verify', 'users.manage', 'posts.moderate', 'reports.view', 'settings.update'])
-            ->map(fn ($s) => Permission::firstOrCreate(['slug' => $s]));
+        $slugs = ['dashboard.view', 'orders.view', 'orders.update', 'payments.verify', 'users.manage', 'posts.moderate', 'reports.view', 'settings.update'];
+        foreach (['courses', 'categories', 'coupons'] as $m) {
+            foreach (['create', 'update', 'delete'] as $a) {
+                $slugs[] = "$m.$a";
+            }
+        }
+        $perms = collect($slugs)->map(fn ($s) => Permission::firstOrCreate(['slug' => $s]));
         $super = Role::firstOrCreate(['slug' => 'super-admin'], ['name' => 'Super Admin']);
         $mod = Role::firstOrCreate(['slug' => 'moderator'], ['name' => 'Moderator']);
         $super->permissions()->syncWithoutDetaching($perms->pluck('id'));
@@ -27,18 +32,20 @@ class DatabaseSeeder extends Seeder
             ->roles()->syncWithoutDetaching([$mod->id]);
 
         $cats = [
-            ['web-development', 'تطوير الويب', 'Web Development'],
-            ['backend-development', 'تطوير الخلفية', 'Backend Development'],
-            ['cyber-security', 'الأمن السيبراني', 'Cyber Security'],
-            ['networking-it', 'الشبكات والدعم الفني', 'Networking & IT'],
-            ['cloud-computing', 'الحوسبة السحابية', 'Cloud Computing'],
-            ['ai-automation', 'الذكاء الاصطناعي والأتمتة', 'AI & Automation'],
+            ['web-development', 'تطوير الويب', 'Web Development', 'mdi-web'],
+            ['backend-development', 'تطوير الخلفية', 'Backend Development', 'mdi-server-network'],
+            ['cyber-security', 'الأمن السيبراني', 'Cyber Security', 'mdi-shield-lock-outline'],
+            ['networking-it', 'الشبكات والدعم الفني', 'Networking & IT', 'mdi-lan'],
+            ['cloud-computing', 'الحوسبة السحابية', 'Cloud Computing', 'mdi-cloud-outline'],
+            ['ai-automation', 'الذكاء الاصطناعي والأتمتة', 'AI & Automation', 'mdi-robot-outline'],
         ];
-        foreach ($cats as $i => [$slug, $ar, $en]) {
-            Category::firstOrCreate(['slug' => $slug], ['name_ar' => $ar, 'name_en' => $en, 'sort_order' => $i, 'is_active' => true]);
+        foreach ($cats as $i => [$slug, $ar, $en, $icon]) {
+            if (! Category::withTrashed()->where('slug', $slug)->exists()) {
+                Category::create(['slug' => $slug, 'name' => ['ar' => $ar, 'en' => $en], 'icon' => $icon, 'sort_order' => $i, 'is_active' => true]);
+            }
         }
 
-        // slug, category, title_ar, title_en, instructor, price EGP, sale EGP|null, level, minutes, featured
+        // slug, category, title ar, title en, instructor, price EGP, sale EGP|null, level, minutes, featured
         $courses = [
             ['laravel-backend', 'backend-development', 'تطوير الخلفية بـ Laravel', 'Laravel Backend Development', 'Mousa', 1000, 600, 'intermediate', 1260, true],
             ['html-css-js', 'web-development', 'أساسيات الويب: HTML وCSS وJavaScript', 'Web Fundamentals: HTML, CSS & JavaScript', 'Mousa', 500, null, 'beginner', 840, true],
@@ -48,21 +55,24 @@ class DatabaseSeeder extends Seeder
             ['python-automation', 'ai-automation', 'أتمتة المهام بلغة Python', 'Python Automation', 'Mousa', 650, null, 'beginner', 540, false],
         ];
         foreach ($courses as $n => [$slug, $cat, $ar, $en, $ins, $price, $sale, $lvl, $min, $feat]) {
-            $c = Course::firstOrCreate(['slug' => $slug], [
+            $c = Course::withTrashed()->where('slug', $slug)->first() ?? Course::create([
                 'category_id' => Category::where('slug', $cat)->value('id'),
-                'title_ar' => $ar, 'title_en' => $en,
-                'description_ar' => 'دورة عملية تعتمد على بناء مشاريع حقيقية خطوة بخطوة، مع ملفات وأكواد جاهزة للتطبيق.',
-                'description_en' => 'A hands-on course built around real projects, step by step, with source files you can reuse.',
+                'slug' => $slug,
+                'title' => ['ar' => $ar, 'en' => $en],
+                'description' => [
+                    'ar' => 'دورة عملية تعتمد على بناء مشاريع حقيقية خطوة بخطوة، مع ملفات وأكواد جاهزة للتطبيق.',
+                    'en' => 'A hands-on course built around real projects, step by step, with source files you can reuse.',
+                ],
                 'instructor_name' => $ins, 'price' => $price * 100, 'sale_price' => $sale ? $sale * 100 : null,
                 'level' => $lvl, 'duration_minutes' => $min, 'is_featured' => $feat,
                 'status' => 'published', 'published_at' => now()->subDays(30 - $n * 6),
             ]);
             if ($c->sections()->doesntExist()) {
-                $s1 = $c->sections()->create(['title_ar' => 'البداية', 'title_en' => 'Getting started', 'sort_order' => 1]);
-                $s2 = $c->sections()->create(['title_ar' => 'التطبيق العملي', 'title_en' => 'Hands-on practice', 'sort_order' => 2]);
+                $s1 = $c->sections()->create(['title' => ['ar' => 'البداية', 'en' => 'Getting started'], 'sort_order' => 1]);
+                $s2 = $c->sections()->create(['title' => ['ar' => 'التطبيق العملي', 'en' => 'Hands-on practice'], 'sort_order' => 2]);
                 $lessons = [[$s1, 'مقدمة الكورس', 'Course introduction', true], [$s1, 'تجهيز بيئة العمل', 'Setting up your environment', false], [$s2, 'المشروع الأول', 'Your first project', false], [$s2, 'المراجعة والخطوات التالية', 'Review and next steps', false]];
                 foreach ($lessons as $k => [$s, $lar, $len, $prev]) {
-                    $c->lessons()->create(['course_section_id' => $s->id, 'title_ar' => $lar, 'title_en' => $len, 'is_preview' => $prev, 'duration_minutes' => 15, 'sort_order' => $k + 1]);
+                    $c->lessons()->create(['course_section_id' => $s->id, 'title' => ['ar' => $lar, 'en' => $len], 'is_preview' => $prev, 'duration_minutes' => 15, 'sort_order' => $k + 1]);
                 }
             }
         }

@@ -92,7 +92,7 @@ class OrderService
             foreach ($courses as $c) {
                 $order->items()->create([
                     'course_id' => $c->id,
-                    'title' => $c->title_en ?: $c->title_ar,
+                    'title' => $c->getTranslation('title', 'en', false) ?: $c->getTranslation('title', 'ar', false),
                     'price' => $c->currentPrice(),
                 ]);
             }

@@ -37,24 +37,21 @@ return new class extends Migration
             $t->id();
             $t->foreignId('parent_id')->nullable()->constrained('categories')->nullOnDelete();
             $t->string('slug')->unique();
-            $t->string('name_ar');
-            $t->string('name_en');
-            $t->string('icon')->nullable();
-            $t->text('description_ar')->nullable();
-            $t->text('description_en')->nullable();
+            $t->json('name');                       // translatable {ar,en}
+            $t->string('icon')->nullable();         // Material Design Icon class
+            $t->json('description')->nullable();    // translatable {ar,en}
             $t->unsignedInteger('sort_order')->default(0);
             $t->boolean('is_active')->default(true);
             $t->timestamps();
+            $t->softDeletes();
         });
 
         Schema::create('courses', function (Blueprint $t) {
             $t->id();
             $t->foreignId('category_id')->constrained()->restrictOnDelete();
             $t->string('slug')->unique();
-            $t->string('title_ar');
-            $t->string('title_en');
-            $t->text('description_ar');
-            $t->text('description_en');
+            $t->json('title');                      // translatable {ar,en}
+            $t->json('description');                // translatable {ar,en}
             $t->string('instructor_name');
             $t->string('image')->nullable();
             $t->string('hover_image')->nullable();
@@ -66,28 +63,29 @@ return new class extends Migration
             $t->string('status')->default('draft')->index();
             $t->timestamp('published_at')->nullable();
             $t->timestamps();
+            $t->softDeletes();
         });
 
         Schema::create('course_sections', function (Blueprint $t) {
             $t->id();
             $t->foreignId('course_id')->constrained()->cascadeOnDelete();
-            $t->string('title_ar');
-            $t->string('title_en');
+            $t->json('title');
             $t->unsignedInteger('sort_order')->default(0);
             $t->timestamps();
+            $t->softDeletes();
         });
 
         Schema::create('lessons', function (Blueprint $t) {
             $t->id();
             $t->foreignId('course_id')->constrained()->cascadeOnDelete();
             $t->foreignId('course_section_id')->constrained('course_sections')->cascadeOnDelete();
-            $t->string('title_ar');
-            $t->string('title_en');
+            $t->json('title');
             $t->string('video_url')->nullable();
             $t->unsignedInteger('duration_minutes')->default(0);
             $t->boolean('is_preview')->default(false);
             $t->unsignedInteger('sort_order')->default(0);
             $t->timestamps();
+            $t->softDeletes();
         });
 
         Schema::create('coupons', function (Blueprint $t) {
@@ -103,6 +101,7 @@ return new class extends Migration
             $t->timestamp('expires_at')->nullable();
             $t->boolean('is_active')->default(true);
             $t->timestamps();
+            $t->softDeletes();
         });
 
         Schema::create('orders', function (Blueprint $t) {
