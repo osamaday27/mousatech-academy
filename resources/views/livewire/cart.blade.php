@@ -1,5 +1,6 @@
-<div class="mx-auto max-w-4xl px-4 py-10">
-  <h1 class="text-3xl font-bold">{{ __('Your cart') }}</h1>
+<div>
+  <x-page-header :title="__('Your cart')" />
+  <div class="mx-auto max-w-4xl px-4 py-10">
   @if($courses->isEmpty())
     <div class="mt-8 border border-silver p-10 text-center">
       <p class="text-steel">{{ __('Your cart is empty.') }}</p>
@@ -29,4 +30,5 @@
       <a href="{{ route('courses.index') }}" class="block pt-1 text-center text-sm text-steel underline">{{ __('Continue shopping') }}</a>
     </div>
   @endif
+</div>
 </div>

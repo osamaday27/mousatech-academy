@@ -1,5 +1,5 @@
 @props(['c'])
-<article {{ $attributes->merge(['class' => 'group flex flex-col border border-silver bg-white transition hover:shadow-md']) }}>
+<article {{ $attributes->merge(['class' => 'group flex flex-col border border-silver bg-white transition hover:-translate-y-0.5 hover:border-gold hover:shadow-md']) }}>
   <a href="{{ route('courses.show', $c) }}" class="relative block aspect-video overflow-hidden bg-ink">
     <img src="{{ $c->imageUrl() }}" alt="{{ $c->tr('title') }}" loading="lazy"
          class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-0">

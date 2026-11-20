@@ -25,3 +25,8 @@
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+@layer components {
+  .eyebrow { @apply text-xs font-semibold tracking-widest text-gold-dark; }
+  .card { @apply border border-silver bg-white; }
+}

@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'email', 'phone', 'password', 'avatar'];
+    protected $fillable = ['name', 'email', 'phone', 'password', 'avatar', 'bio'];
     protected $hidden = ['password', 'remember_token'];
     protected ?array $permCache = null;
 
@@ -34,6 +35,16 @@ class User extends Authenticatable
     public function enrolledCourses(): BelongsToMany
     {
         return $this->belongsToMany(Course::class, 'course_enrollments')->withTimestamps();
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function avatarUrl(): ?string
+    {
+        return $this->avatar ? Storage::disk('public')->url($this->avatar) : null;
     }
 
     public function isSuper(): bool

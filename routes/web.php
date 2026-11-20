@@ -6,6 +6,7 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Cart;
 use App\Livewire\Checkout;
+use App\Livewire\Community;
 use App\Livewire\CourseIndex;
 use App\Livewire\CourseShow;
 use App\Livewire\Home;
@@ -13,6 +14,7 @@ use App\Livewire\MyCourses;
 use App\Livewire\MyOrders;
 use App\Livewire\OrderShow;
 use App\Livewire\Player;
+use App\Livewire\Profile;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +26,8 @@ Route::middleware([SetLocale::class])->group(function () {
     Route::get('/courses', CourseIndex::class)->name('courses.index');
     Route::get('/courses/{course}', CourseShow::class)->name('courses.show');
     Route::get('/cart', Cart::class)->name('cart');
+    Route::get('/community', Community::class)->name('community');
+    Route::get('/u/{user}', Profile::class)->name('profile');
     Route::get('/lang/{locale}', function (string $locale) {
         abort_unless(in_array($locale, ['ar', 'en'], true), 404);
         session(['locale' => $locale]);

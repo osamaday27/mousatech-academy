@@ -1,5 +1,6 @@
-<div class="mx-auto max-w-4xl px-4 py-10">
-  <h1 class="text-3xl font-bold">{{ __('My orders') }}</h1>
+<div>
+  <x-page-header :title="__('My orders')" />
+  <div class="mx-auto max-w-4xl px-4 py-10">
   <div class="mt-6 divide-y divide-silver border border-silver">
     @forelse($orders as $o)
       <a wire:key="o-{{ $o->id }}" href="{{ route('orders.show', $o) }}" class="flex items-center justify-between p-4 hover:bg-silver/20">
@@ -10,4 +11,5 @@
       <p class="p-8 text-center text-steel">{{ __('You have no orders yet.') }}</p>
     @endforelse
   </div>
+</div>
 </div>
