@@ -6,7 +6,7 @@
       @if($eyebrow)<div class="eyebrow">{{ $eyebrow }}</div>@endif
       <h2 class="mt-1 text-2xl font-bold md:text-3xl">{{ $title }}</h2>
     </div>
-    <a href="{{ route('courses.index') }}" class="shrink-0 rounded-xl border border-navy-2 px-4 py-2 text-sm font-semibold transition hover:bg-navy-2 hover:text-white">{{ __('View all') }}</a>
+    <a href="{{ route('courses.index') }}" class="shrink-0 rounded-xl border border-silver px-4 py-2 text-sm font-semibold transition hover:border-gold hover:bg-gold">{{ __('View all') }}</a>
   </div>
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
     @foreach($courses as $c)

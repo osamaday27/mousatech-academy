@@ -3,11 +3,11 @@
     <a href="{{ route('courses.show', $course) }}" class="text-sm text-steel underline">{{ $course->tr('title') }}</a>
     @if($cur)
       <h1 class="mt-2 text-2xl font-bold">{{ $cur->tr('title') }}</h1>
-      <div class="mt-4 aspect-video w-full bg-ink">
+      <div class="mt-4 aspect-video w-full bg-mist">
         @if($cur->video_url)
           <iframe src="{{ $cur->video_url }}" class="h-full w-full" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin" title="{{ $cur->tr('title') }}"></iframe>
         @else
-          <div class="grid h-full place-items-center text-sm text-silver">{{ __('No video has been added to this lesson yet.') }}</div>
+          <div class="grid h-full place-items-center text-sm text-steel">{{ __('No video has been added to this lesson yet.') }}</div>
         @endif
       </div>
       @if($owned)
@@ -27,7 +27,7 @@
     </div>
     @foreach($sections as $s)
       <div wire:key="ps-{{ $s->id }}">
-        <div class="bg-ink px-4 py-2 text-sm font-semibold text-white">{{ $s->tr('title') }}</div>
+        <div class="bg-mist px-4 py-2 text-sm font-semibold text-ink">{{ $s->tr('title') }}</div>
         @foreach($s->lessons as $l)
           @php($can = $owned || $l->is_preview)
           <button type="button" wire:key="pl-{{ $l->id }}" @if($can) wire:click="select({{ $l->id }})" @else disabled @endif

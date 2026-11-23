@@ -1,13 +1,13 @@
 <div>
   {{-- ===== Hero (rounded banner, like the reference) ===== --}}
   <section class="mx-auto max-w-7xl px-4 pt-6">
-    <div class="hero-bg grid-bg relative overflow-hidden rounded-3xl px-6 pb-10 pt-12 text-center text-white md:px-12">
-      <svg class="pointer-events-none absolute -start-4 top-6 hidden h-32 w-48 text-gold/50 md:block" viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 60C40 20 90 20 150 45l35-8-12 28c-30 25-80 35-120 5z"/><circle cx="120" cy="52" r="10"/><path d="M30 95c10-10 25-15 40-10"/></svg>
-      <svg class="pointer-events-none absolute -end-4 top-6 hidden h-32 w-44 text-gold/50 md:block" viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M60 15l75-8 20 70-75 10z"/><path d="M70 25l55-6 12 48-55 7z"/><path d="M10 100c50-5 120-20 190-45"/></svg>
+    <div class="hero-bg grid-bg relative overflow-hidden rounded-3xl px-6 pb-10 pt-12 text-center text-ink md:px-12">
+      <svg class="pointer-events-none absolute -start-4 top-6 hidden h-32 w-48 text-gold/60 md:block" viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 60C40 20 90 20 150 45l35-8-12 28c-30 25-80 35-120 5z"/><circle cx="120" cy="52" r="10"/><path d="M30 95c10-10 25-15 40-10"/></svg>
+      <svg class="pointer-events-none absolute -end-4 top-6 hidden h-32 w-44 text-gold/60 md:block" viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M60 15l75-8 20 70-75 10z"/><path d="M70 25l55-6 12 48-55 7z"/><path d="M10 100c50-5 120-20 190-45"/></svg>
 
       <span class="inline-block rounded-full bg-white px-4 py-1.5 text-xs font-bold text-ink">{{ __('More than :n courses', ['n' => max($stats['courses'], 1)]) }}</span>
-      <h1 class="mx-auto mt-5 max-w-3xl text-4xl font-bold leading-tight md:text-5xl">{{ __('Start your journey to build your') }} <span class="text-gold">{{ __('tech skills') }}</span></h1>
-      <p class="mx-auto mt-4 max-w-2xl text-silver">{{ __('Project-based courses in web, backend, security, cloud and AI, taught in Arabic.') }}</p>
+      <h1 class="mx-auto mt-5 max-w-3xl text-4xl font-bold leading-tight md:text-5xl">{{ __('Start your journey to build your') }} <span class="text-ink">{{ __('tech skills') }}</span></h1>
+      <p class="mx-auto mt-4 max-w-2xl text-steel">{{ __('Project-based courses in web, backend, security, cloud and AI, taught in Arabic.') }}</p>
 
       <form action="{{ route('courses.index') }}" class="mx-auto mt-7 flex max-w-xl overflow-hidden rounded-xl bg-white p-1.5">
         <input type="search" name="q" placeholder="{{ __('Search courses or instructors') }}" aria-label="{{ __('Search') }}" class="min-w-0 flex-1 bg-transparent px-4 text-ink placeholder:text-steel focus:outline-none">
@@ -16,10 +16,10 @@
 
       <div class="mx-auto mt-10 grid max-w-5xl gap-5 text-start md:grid-cols-3">
         @foreach($categories->take(3) as $cat)
-          <a wire:key="hero-{{ $cat->id }}" href="{{ route('courses.index', ['cat' => $cat->slug]) }}" class="group relative flex h-44 flex-col justify-between overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-navy-3 to-navy p-5 transition hover:border-gold">
+          <a wire:key="hero-{{ $cat->id }}" href="{{ route('courses.index', ['cat' => $cat->slug]) }}" class="group relative flex h-44 flex-col justify-between overflow-hidden rounded-2xl border border-silver bg-white shadow-card p-5 transition hover:border-gold">
             <i class="mdi {{ $cat->icon ?: 'mdi-code-tags' }} text-4xl text-gold" aria-hidden="true"></i>
             <span class="font-bold">{{ $cat->tr('name') }}</span>
-            <span class="absolute bottom-4 end-4 grid h-10 w-10 place-items-center rounded-full bg-white text-ink transition group-hover:bg-gold rtl:-scale-x-100" aria-hidden="true">↗</span>
+            <span class="absolute bottom-4 end-4 grid h-10 w-10 place-items-center rounded-full bg-mist text-ink transition group-hover:bg-gold rtl:-scale-x-100" aria-hidden="true">↗</span>
           </a>
         @endforeach
       </div>
@@ -81,21 +81,21 @@
 
   {{-- ===== Community preview ===== --}}
   <section class="mx-auto mt-16 max-w-7xl px-4">
-    <div class="hero-bg grid-bg rounded-3xl px-6 py-14 text-white md:px-12">
+    <div class="hero-bg grid-bg rounded-3xl px-6 py-14 text-ink md:px-12">
       <div class="flex flex-wrap items-end justify-between gap-4">
-        <div><div class="eyebrow !text-gold">{{ __('Community') }}</div><h2 class="mt-1 text-2xl font-bold md:text-3xl">{{ __('Learn together, not alone') }}</h2>
-          <p class="mt-2 max-w-xl text-silver">{{ __('Share what you build, ask questions and get answers from other learners.') }}</p></div>
+        <div><div class="eyebrow !text-ink">{{ __('Community') }}</div><h2 class="mt-1 text-2xl font-bold md:text-3xl">{{ __('Learn together, not alone') }}</h2>
+          <p class="mt-2 max-w-xl text-steel">{{ __('Share what you build, ask questions and get answers from other learners.') }}</p></div>
         <a href="{{ route('community') }}" class="btn btn-gold">{{ __('Join the conversation') }}</a>
       </div>
       <div class="mt-8 grid gap-4 md:grid-cols-3">
         @forelse($posts as $p)
-          <a wire:key="hp-{{ $p->id }}" href="{{ route('community') }}" class="block rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:border-gold">
+          <a wire:key="hp-{{ $p->id }}" href="{{ route('community') }}" class="block rounded-2xl border border-silver bg-white p-5 transition hover:border-gold">
             <div class="flex items-center gap-3"><x-avatar :user="$p->user" /><div><div class="text-sm font-semibold">{{ $p->user->name }}</div><div class="text-xs text-steel">{{ $p->created_at->diffForHumans() }}</div></div></div>
-            <p class="mt-4 text-sm leading-6 text-silver">{{ \Illuminate\Support\Str::limit($p->body, 140) }}</p>
+            <p class="mt-4 text-sm leading-6 text-steel">{{ \Illuminate\Support\Str::limit($p->body, 140) }}</p>
             <div class="mt-4 flex gap-4 text-xs text-steel"><span>♥ {{ $p->likes_count }}</span><span>💬 {{ $p->comments_count }}</span></div>
           </a>
         @empty
-          <p class="col-span-full rounded-2xl border border-white/15 p-8 text-center text-silver">{{ __('No posts yet. Be the first to share something.') }}</p>
+          <p class="col-span-full rounded-2xl border border-silver p-8 text-center text-steel">{{ __('No posts yet. Be the first to share something.') }}</p>
         @endforelse
       </div>
     </div>
@@ -105,13 +105,13 @@
   <section class="mx-auto max-w-7xl px-4 py-16">
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
       @foreach([['courses', 'Courses'], ['students', 'Learners'], ['members', 'Members'], ['posts', 'Community posts']] as [$k, $label])
-        <div class="card p-6 text-center"><div class="text-3xl font-bold text-gold-dark">{{ number_format($stats[$k]) }}</div><div class="mt-1 text-xs text-steel">{{ __($label) }}</div></div>
+        <div class="card p-6 text-center"><div class="text-3xl font-bold text-ink">{{ number_format($stats[$k]) }}</div><div class="mt-1 text-xs text-steel">{{ __($label) }}</div></div>
       @endforeach
     </div>
     <div class="mt-14"><div class="eyebrow">{{ __('How it works') }}</div><h2 class="mt-1 text-2xl font-bold md:text-3xl">{{ __('Your learning journey') }}</h2></div>
     <div class="mt-8 grid gap-5 md:grid-cols-4">
       @foreach([['Choose a course', 'Browse paths and preview free lessons.'], ['Enroll securely', 'Pay with Vodafone Cash and we confirm it fast.'], ['Learn and track', 'Your progress is saved on every lesson.'], ['Share and grow', 'Post your projects and learn with the community.']] as $i => [$h, $d])
-        <div class="card p-6"><div class="text-3xl font-bold text-gold-dark" dir="ltr">{{ $i + 1 }}</div><h3 class="mt-3 font-bold">{{ __($h) }}</h3><p class="mt-2 text-sm text-steel">{{ __($d) }}</p></div>
+        <div class="card p-6"><div class="text-3xl font-bold text-ink" dir="ltr">{{ $i + 1 }}</div><h3 class="mt-3 font-bold">{{ __($h) }}</h3><p class="mt-2 text-sm text-steel">{{ __($d) }}</p></div>
       @endforeach
     </div>
   </section>
@@ -122,7 +122,7 @@
     @foreach([['How do I enroll in a course?', 'Add it to your cart, check out, and the course unlocks once your payment is confirmed.'], ['Can I rewatch lessons?', 'Yes. Once you own a course you can rewatch any lesson, any time.'], ['Which payment methods are available?', 'Vodafone Cash with a receipt upload, with card payments coming soon.'], ['Can I study from my phone?', 'Yes. The platform works on phones, tablets and computers.']] as $i => [$q, $a])
       <div class="mb-3 rounded-2xl bg-white px-5 shadow-card">
         <button type="button" class="flex w-full items-center justify-between py-4 text-start font-semibold" x-on:click="open = open === {{ $i }} ? null : {{ $i }}">
-          {{ __($q) }}<span x-text="open === {{ $i }} ? '−' : '+'" class="text-xl text-gold-dark"></span>
+          {{ __($q) }}<span x-text="open === {{ $i }} ? '−' : '+'" class="text-xl text-ink"></span>
         </button>
         <p x-cloak x-show="open === {{ $i }}" class="pb-4 text-sm text-steel">{{ __($a) }}</p>
       </div>
@@ -132,9 +132,9 @@
   {{-- ===== Final CTA ===== --}}
   @guest
   <section class="mx-auto max-w-7xl px-4">
-    <div class="hero-bg grid-bg rounded-3xl px-6 py-16 text-center text-white">
+    <div class="hero-bg grid-bg rounded-3xl px-6 py-16 text-center text-ink">
       <h2 class="mx-auto max-w-2xl text-3xl font-bold leading-snug md:text-4xl">{{ __('Sign up now and start learning with real projects!') }}</h2>
-      <p class="mx-auto mt-3 max-w-xl text-silver">{{ __('Create your free account to preview lessons and join the community.') }}</p>
+      <p class="mx-auto mt-3 max-w-xl text-steel">{{ __('Create your free account to preview lessons and join the community.') }}</p>
       <a href="{{ route('register') }}" class="btn btn-gold mt-7 !px-10">{{ __('Create your account now') }}</a>
     </div>
   </section>

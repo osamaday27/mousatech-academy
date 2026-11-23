@@ -2,7 +2,7 @@
   <div class="flex items-start justify-between gap-3 p-4">
     <a href="{{ route('profile', $p->user) }}" class="flex items-center gap-3">
       <x-avatar :user="$p->user" />
-      <span><span class="block text-sm font-semibold hover:text-gold-dark">{{ $p->user->name }}</span>
+      <span><span class="block text-sm font-semibold hover:text-ink">{{ $p->user->name }}</span>
         <span class="block text-xs text-steel">{{ $p->created_at->diffForHumans() }}</span></span>
     </a>
     @if($manage)
@@ -28,7 +28,7 @@
   @if($p->image)<img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($p->image) }}" alt="" loading="lazy" class="max-h-[28rem] w-full object-cover">@endif
 
   <div class="flex items-center gap-6 border-t border-silver px-4 py-3 text-sm">
-    <button type="button" wire:click="like" class="flex items-center gap-1.5 font-semibold {{ $liked ? 'text-gold-dark' : 'text-steel hover:text-ink' }}" aria-pressed="{{ $liked ? 'true' : 'false' }}">
+    <button type="button" wire:click="like" class="flex items-center gap-1.5 font-semibold {{ $liked ? 'text-ink' : 'text-steel hover:text-ink' }}" aria-pressed="{{ $liked ? 'true' : 'false' }}">
       <span aria-hidden="true">{{ $liked ? '♥' : '♡' }}</span>{{ __('Like') }} <span class="text-xs">{{ $p->likes_count }}</span>
     </button>
     <button type="button" wire:click="toggle" class="flex items-center gap-1.5 font-semibold text-steel hover:text-ink">
@@ -44,7 +44,7 @@
             <a href="{{ route('profile', $c->user) }}"><x-avatar :user="$c->user" size="h-8 w-8 text-sm" /></a>
             <div class="min-w-0 flex-1 border border-silver bg-white px-3 py-2">
               <div class="flex items-center justify-between gap-2">
-                <a href="{{ route('profile', $c->user) }}" class="text-sm font-semibold hover:text-gold-dark">{{ $c->user->name }}</a>
+                <a href="{{ route('profile', $c->user) }}" class="text-sm font-semibold hover:text-ink">{{ $c->user->name }}</a>
                 <span class="flex items-center gap-3 text-xs text-steel">{{ $c->created_at->diffForHumans() }}
                   @if(auth()->check() && ($c->user_id === auth()->id() || auth()->user()->can('posts.moderate')))
                     <button type="button" wire:click="deleteComment({{ $c->id }})" wire:confirm="{{ __('Delete this comment?') }}" class="underline hover:text-red-600">{{ __('Delete') }}</button>

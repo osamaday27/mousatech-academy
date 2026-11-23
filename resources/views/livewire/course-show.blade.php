@@ -1,9 +1,9 @@
 <div>
-  <section class="grid-bg bg-ink text-white">
+  <section class="grid-bg border-b border-silver bg-mist text-ink">
     <div class="mx-auto max-w-7xl px-4 py-12">
-      <div class="text-sm text-gold">{{ $course->category?->tr('name') }}</div>
+      <div class="text-sm text-ink">{{ $course->category?->tr('name') }}</div>
       <h1 class="mt-2 max-w-3xl text-3xl font-bold md:text-4xl">{{ $course->tr('title') }}</h1>
-      <div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-silver">
+      <div class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-steel">
         <span>{{ __('Instructor') }}: {{ $course->instructor_name }}</span>
         <span>{{ __(ucfirst($course->level)) }}</span>
         <span>{{ $course->durationLabel() }}</span>
@@ -22,14 +22,14 @@
       <div class="mt-4 border border-silver">
         @forelse($sections as $s)
           <div wire:key="s-{{ $s->id }}" class="border-b border-silver last:border-b-0">
-            <div class="bg-ink px-4 py-3 font-semibold text-white">{{ $s->tr('title') }}</div>
+            <div class="bg-mist px-4 py-3 font-semibold text-ink">{{ $s->tr('title') }}</div>
             @foreach($s->lessons as $l)
               <div wire:key="l-{{ $l->id }}" class="flex items-center justify-between border-t border-silver px-4 py-3 text-sm">
                 <span>{{ $l->tr('title') }}</span>
                 @if($owned)
-                  <a href="{{ route('learn', [$course, $l->id]) }}" class="font-semibold text-gold-dark">{{ __('Watch') }}</a>
+                  <a href="{{ route('learn', [$course, $l->id]) }}" class="font-semibold text-ink">{{ __('Watch') }}</a>
                 @elseif($l->is_preview)
-                  <a href="{{ route('learn', [$course, $l->id]) }}" class="font-semibold text-gold-dark">{{ __('Free preview') }}</a>
+                  <a href="{{ route('learn', [$course, $l->id]) }}" class="font-semibold text-ink">{{ __('Free preview') }}</a>
                 @else
                   <span class="text-steel">{{ __('Locked') }}</span>
                 @endif
@@ -48,10 +48,10 @@
         <a href="{{ route('learn', $course) }}" class="btn btn-gold w-full">{{ __('Continue learning') }}</a>
       @else
         <div class="flex items-baseline gap-3">
-          <span class="text-3xl font-bold text-gold-dark">{{ \App\Support\Money::fmt($course->currentPrice()) }}</span>
+          <span class="text-3xl font-bold text-ink">{{ \App\Support\Money::fmt($course->currentPrice()) }}</span>
           @if($course->hasDiscount())
             <span class="text-steel line-through">{{ \App\Support\Money::fmt($course->price) }}</span>
-            <span class="bg-ink px-1.5 py-0.5 text-xs font-bold text-gold">-{{ $course->discountPercent() }}%</span>
+            <span class="bg-gold px-1.5 py-0.5 text-xs font-bold text-ink">-{{ $course->discountPercent() }}%</span>
           @endif
         </div>
         <button type="button" wire:click="buyNow" class="btn btn-gold mt-5 w-full">{{ __('Buy now') }}</button>

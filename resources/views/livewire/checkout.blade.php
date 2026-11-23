@@ -19,13 +19,13 @@
     </div>
 
     @if($method === 'vodafone' && $q['total'] > 0)
-      <div class="mt-5 border border-gold bg-ink p-5 text-sm text-silver">
+      <div class="mt-5 border border-gold bg-mist p-5 text-sm text-steel">
         @if(config('academy.vodafone_number'))
           <p>{{ __('Send :amount to this Vodafone Cash number', ['amount' => \App\Support\Money::fmt($q['total'])]) }}:</p>
-          <p dir="ltr" class="mt-1 text-xl font-bold text-gold">{{ config('academy.vodafone_number') }}</p>
+          <p dir="ltr" class="mt-1 text-xl font-bold text-ink">{{ config('academy.vodafone_number') }}</p>
         @else
           <p>{{ __('Ask us on WhatsApp for the transfer number.') }}
-            <a class="text-gold underline" href="https://wa.me/{{ config('academy.whatsapp') }}" target="_blank" rel="noopener">+{{ config('academy.whatsapp') }}</a></p>
+            <a class="text-ink underline" href="https://wa.me/{{ config('academy.whatsapp') }}" target="_blank" rel="noopener">+{{ config('academy.whatsapp') }}</a></p>
         @endif
       </div>
       <div class="mt-5">
@@ -52,12 +52,12 @@
       <button class="btn btn-dark">{{ __('Apply') }}</button>
     </form>
     @if($applied && $q['error'])<span class="err">{{ __($q['error']) }}</span>@endif
-    @if($q['coupon'])<span class="mt-1 block text-xs font-semibold text-gold-dark">{{ $q['coupon']->code }} {{ __('applied') }}</span>@endif
+    @if($q['coupon'])<span class="mt-1 block text-xs font-semibold text-ink">{{ $q['coupon']->code }} {{ __('applied') }}</span>@endif
 
     <div class="mt-4 space-y-1 border-t border-silver pt-3 text-sm">
       <div class="flex justify-between"><span>{{ __('Subtotal') }}</span><span>{{ \App\Support\Money::fmt($q['subtotal']) }}</span></div>
       @if($q['discount'] > 0)<div class="flex justify-between"><span>{{ __('Discount') }}</span><span>-{{ \App\Support\Money::fmt($q['discount']) }}</span></div>@endif
-      <div class="flex justify-between pt-2 text-lg font-bold"><span>{{ __('Total') }}</span><span class="text-gold-dark">{{ \App\Support\Money::fmt($q['total']) }}</span></div>
+      <div class="flex justify-between pt-2 text-lg font-bold"><span>{{ __('Total') }}</span><span class="text-ink">{{ \App\Support\Money::fmt($q['total']) }}</span></div>
     </div>
   </aside>
 </div>

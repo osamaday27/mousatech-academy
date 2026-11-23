@@ -1,5 +1,5 @@
 <div>
-  <section class="grid-bg bg-ink text-white">
+  <section class="grid-bg border-b border-silver bg-mist text-ink">
     <div class="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-12 sm:flex-row sm:items-center">
       <x-avatar :user="$user" size="h-24 w-24 text-4xl" />
       <div class="min-w-0 flex-1">
@@ -7,17 +7,17 @@
           <h1 class="text-3xl font-bold">{{ $user->name }}</h1>
           @foreach($roles as $r)<span class="bg-gold px-2 py-0.5 text-xs font-bold text-ink">{{ __($r) }}</span>@endforeach
         </div>
-        @if($user->bio)<p class="mt-2 max-w-xl whitespace-pre-line text-silver">{{ $user->bio }}</p>@endif
+        @if($user->bio)<p class="mt-2 max-w-xl whitespace-pre-line text-steel">{{ $user->bio }}</p>@endif
         <p class="mt-2 text-xs text-steel">{{ __('Member since') }} {{ $user->created_at->translatedFormat('F Y') }}</p>
       </div>
-      @if($owner && ! $editing)<button type="button" wire:click="edit" class="btn border border-silver text-white hover:bg-white hover:text-ink">{{ __('Edit profile') }}</button>@endif
+      @if($owner && ! $editing)<button type="button" wire:click="edit" class="btn border border-silver text-ink hover:bg-white hover:text-ink">{{ __('Edit profile') }}</button>@endif
     </div>
   </section>
 
   <div class="border-b border-silver">
     <div class="mx-auto grid max-w-4xl grid-cols-3 divide-x divide-silver rtl:divide-x-reverse">
       @foreach([[$postsCount, 'Posts'], [$likesReceived, 'Likes received'], [$coursesCount, 'Courses']] as [$n, $label])
-        <div class="py-5 text-center"><div class="text-2xl font-bold text-gold-dark">{{ $n }}</div><div class="text-xs text-steel">{{ __($label) }}</div></div>
+        <div class="py-5 text-center"><div class="text-2xl font-bold text-ink">{{ $n }}</div><div class="text-xs text-steel">{{ __($label) }}</div></div>
       @endforeach
     </div>
   </div>
